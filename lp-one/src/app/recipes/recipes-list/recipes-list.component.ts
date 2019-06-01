@@ -12,7 +12,7 @@ export class RecipesListComponent implements OnInit {
     new Recipe(
       'Boondi Ke Ladoo', 
       'Boondi Ke Ladoo Recipe', 
-      'https://justhindi.in/recipes/wp-content/uploads/2017/04/boondi-ke-ladoo.jpg'
+      'assets/images/recipes/boondi-ke-ladoo.jpg'
     )
   ];
 
