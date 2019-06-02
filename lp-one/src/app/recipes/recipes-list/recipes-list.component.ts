@@ -13,6 +13,11 @@ export class RecipesListComponent implements OnInit {
       'Boondi Ke Ladoo', 
       'Boondi Ke Ladoo Recipe', 
       'assets/images/recipes/boondi-ke-ladoo.jpg'
+    ),
+    new Recipe(
+      'Boondi Ke Ladoo 2', 
+      'Boondi Ke Ladoo Recipe 2', 
+      'assets/images/recipes/boondi-ke-ladoo.jpg'
     )
   ];
 
