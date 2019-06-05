@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model'
+import { ShopingListService } from './shoping-list.service';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-shoping-list',
@@ -7,21 +9,17 @@ import { Ingredient } from '../shared/ingredient.model'
 })
 export class ShopingListComponent implements OnInit {
 
-  ingredients: Ingredient[] = [
-    new Ingredient( 'Flour 250g', 10 ),
-    new Ingredient( 'Semolina 50g', 15 ),
-    new Ingredient( 'Sugar 400g', 20 ),
-    new Ingredient( 'Water 2 Liters', 0 ),
-    new Ingredient( 'Yellow Food Color', 10 )
-  ];
+  ingredients: Ingredient[];
 
-  constructor() { }
+  constructor(private slService: ShopingListService) { }
 
   ngOnInit() {
-  }
-
-  onIngredientAdded(ingredient){
-    this.ingredients.push(ingredient);
+    this.ingredients = this.slService.getIngredients();
+    this.slService.ingredientsChanged.subscribe(
+      (ingrediens: Ingredient[]) => {
+        this.ingredients = ingrediens;
+      }
+    );
   }
 
 }
