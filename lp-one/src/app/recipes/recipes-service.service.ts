@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Recipe } from './recipe-model';
 import { Ingredient } from '../shared/ingredient.model';
+import { ReturnStatement } from '@angular/compiler';
 
 
 @Injectable({
@@ -45,6 +46,10 @@ export class RecipesServiceService {
 
   setRecipeSelected(){
     
+  }
+
+  getRecipe(id:number){
+    return this.recipes[id];
   }
 
 }
