@@ -1,25 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model'
 import { ShopingListService } from './shoping-list.service';
-import { TouchSequence } from 'selenium-webdriver';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-shoping-list',
   templateUrl: './shoping-list.component.html'
 })
-export class ShopingListComponent implements OnInit {
+export class ShopingListComponent implements OnInit, OnDestroy {
 
   ingredients: Ingredient[];
+  subscription: Subscription;
 
   constructor(private slService: ShopingListService) { }
 
   ngOnInit() {
     this.ingredients = this.slService.getIngredients();
-    this.slService.ingredientsChanged.subscribe(
+    this.subscription = this.slService.ingredientsChanged.subscribe(
       (ingrediens: Ingredient[]) => {
         this.ingredients = ingrediens;
       }
     );
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
 }
