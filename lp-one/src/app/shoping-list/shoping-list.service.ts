@@ -9,6 +9,8 @@ export class ShopingListService {
 
   ingredientsChanged = new Subject<Ingredient[]>();
 
+  startedEditing = new Subject<number>();
+
   private ingredients: Ingredient[] = [
     new Ingredient( 'Flour 250g', 10 ),
     new Ingredient( 'Semolina 50g', 15 ),
@@ -21,6 +23,15 @@ export class ShopingListService {
 
   getIngredients(){
     return this.ingredients.slice();
+  }
+
+  getIngredient(index: number){
+    return this.ingredients[index];
+  }
+
+  updateIngredient(index, newIngredient: Ingredient){
+    this.ingredients[index] = newIngredient;
+    this.ingredientsChanged.next(this.ingredients.slice());
   }
 
   addIngredient(ingredient: Ingredient){
