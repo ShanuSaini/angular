@@ -4,6 +4,7 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
 import { ShopingListService } from 'src/app/shoping-list/shoping-list.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RecipesServiceService } from '../recipes-service.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -15,7 +16,8 @@ export class RecipeDetailComponent implements OnInit {
   recipeDetail: Recipe;
 
   constructor(private slService: ShopingListService,
-    private route: ActivatedRoute, private recipeService: RecipesServiceService) { }
+    private route: ActivatedRoute, private recipeService: RecipesServiceService,
+    private _location : Location) { }
 
   ngOnInit() {
     // const id = this.route.snapshot.params['id'];
@@ -36,6 +38,7 @@ export class RecipeDetailComponent implements OnInit {
 
   onDeleteRecipe(){
     this.recipeService.deleteRecipe(this.id);
+    this._location.back();
   }
 
 }
