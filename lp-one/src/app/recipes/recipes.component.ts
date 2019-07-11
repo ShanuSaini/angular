@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RecipesServiceService } from './recipes-service.service';
 
 @Component({
   selector: 'app-recipes',
-  templateUrl: './recipes.component.html',
-  providers: [RecipesServiceService]
+  templateUrl: './recipes.component.html'
 })
 export class RecipesComponent implements OnInit {
 
