@@ -39,7 +39,7 @@
             <input type="number" placeholder="amount" class="form-control" formControlName="amount">
           </div>
           <div class="col-2">
-            <button class="btn btn-danger">
+            <button type="button" (click)="onDeleteIngredient(i)"  class="btn btn-danger">
               X
             </button>
           </div>
