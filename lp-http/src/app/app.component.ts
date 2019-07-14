@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Post } from './post.model';
+import { PostsService } from './posts.service';
 
 @Component({
   selector: 'app-root',
@@ -12,42 +11,18 @@ export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isFetching: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private postsService: PostsService) {}
 
   ngOnInit() { 
-    this.onFetchPosts(); 
+    this.isFetching = true;
+    this.postsService.fetchPosts().subscribe(posts => {
+      this.isFetching = false;
+      this.loadedPosts = posts;
+    });
   }
 
   onCreatePost(postData: Post) {
-    // Send Http request
-    this.http
-      .post<{name: string}>(
-        'yourDBURL/posts.json',  // Realtime database URL here
-        postData
-      )
-      .subscribe(responseData => {
-        console.log(responseData);
-      });
-  }
-
-  onFetchPosts() {
-    this.isFetching = true;
-    this.http.get<{[key: string]: Post}>('yourDBURL/posts.json')  // Realtime DataBase URL
-      .pipe(map(responseData => {
-        const postsArray: Post[] = [];
-        for(const key in responseData){
-          if(responseData.hasOwnProperty(key)){
-            postsArray.push({ ...responseData[key], id: key });
-          }
-        }
-        return postsArray;
-      }))
-      .subscribe(
-        responseData => {
-          this.isFetching = false;
-          this.loadedPosts = responseData;
-        }
-      );
+    this.postsService.createAndStorePost(postData.title, postData.content);
   }
 
   onClearPosts() {
