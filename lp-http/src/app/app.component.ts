@@ -10,6 +10,7 @@ import { Post } from './post.model';
 })
 export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
+  isFetching: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit {
   }
 
   onFetchPosts() {
+    this.isFetching = true;
     this.http.get<{[key: string]: Post}>('yourDBURL/posts.json')  // Realtime DataBase URL
       .pipe(map(responseData => {
         const postsArray: Post[] = [];
@@ -42,6 +44,7 @@ export class AppComponent implements OnInit {
       }))
       .subscribe(
         responseData => {
+          this.isFetching = false;
           this.loadedPosts = responseData;
         }
       );
