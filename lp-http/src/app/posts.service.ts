@@ -35,6 +35,10 @@ export class PostsService {
         );
     }
 
+    deletePosts(){
+        return this.http.delete('yourDBURL/posts.json');
+    }
+
 
 
 
